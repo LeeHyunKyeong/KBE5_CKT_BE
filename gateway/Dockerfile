@@ -13,7 +13,4 @@ COPY pinpoint-agent-2.5.4 /app/pinpoint-agent-2.5.4
 COPY ./gateway/build/libs/*.jar app.jar
 
 # 3. 애플리케이션 실행 명령어 정의 (Pinpoint 에이전트 JVM 옵션 포함)
-ENTRYPOINT ["java", \
-            "-javaagent:/app/pinpoint-agent-2.5.4/pinpoint-bootstrap-2.5.4.jar", \
-            "-Dpinpoint.agentId=${HOSTNAME}-gateway-app", \
-            "-Dpinpoint.applicationName=Ckt-Gateway"]
+ENTRYPOINT ["java"]

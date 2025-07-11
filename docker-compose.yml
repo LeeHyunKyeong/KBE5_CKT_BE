@@ -14,13 +14,12 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     networks:
-      - ckt_network  # 네트워크 이름 변경
+      - ckt_network
 
   admin:
     build:
-      context: . # <--- 빌드 컨텍스트를 프로젝트 루트(.)로 변경!
-      dockerfile: ./admin/Dockerfile # <--- Dockerfile 경로 명시!
-#      context: ./admin
+      context: .
+      dockerfile: ./admin/Dockerfile
     depends_on:
       - db
     environment:
@@ -35,21 +34,23 @@ services:
     volumes:
       - ./logs:/logs
     networks:
-      - ckt_network  # 네트워크 이름 변경
+      - ckt_network
     command:
+      -javaagent:/app/pinpoint-agent-2.5.4/pinpoint-bootstrap-2.5.4.jar
+      -Dpinpoint.agentId=${HOSTNAME}-admin-app
+      -Dpinpoint.applicationName=Ckt-Admin
       -Dprofiler.transport.grpc.collector.ip=pinpoint-collector
       -Dprofiler.collector.ip=pinpoint-collector
       -jar app.jar
 
   gateway:
     build:
-      context: . # <--- 빌드 컨텍스트를 프로젝트 루트(.)로 변경!
-      dockerfile: ./gateway/Dockerfile # <--- Dockerfile 경로 명시!
-#      context: ./gateway
+      context: .
+      dockerfile: ./gateway/Dockerfile
     ports:
       - "8080:8080"
     environment:
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE} # docker
+      SPRING_PROFILES_ACTIVE: docker #${SPRING_PROFILES_ACTIVE} # docker
       SPRING_REACTOR_CONTEXT_PROPAGATION: AUTO
       JWT_SECRET: ${JWT_SECRET}
     depends_on:
@@ -59,6 +60,9 @@ services:
     networks:
       - ckt_network
     command:
+      -javaagent:/app/pinpoint-agent-2.5.4/pinpoint-bootstrap-2.5.4.jar
+      -Dpinpoint.agentId=${HOSTNAME}-gateway-app
+      -Dpinpoint.applicationName=Ckt-Gateway
       -Dprofiler.transport.grpc.collector.ip=pinpoint-collector
       -Dprofiler.collector.ip=pinpoint-collector
       -jar app.jar
@@ -67,7 +71,6 @@ services:
     build:
       context: .
       dockerfile: ./collector/Dockerfile
-#      context: ./collector
     depends_on:
       - db
       - rabbitmq
@@ -89,13 +92,17 @@ services:
     networks:
       - ckt_network
     command:
+      -javaagent:/app/pinpoint-agent-2.5.4/pinpoint-bootstrap-2.5.4.jar
+      -Dpinpoint.agentId=${HOSTNAME}-collector-app
+      -Dpinpoint.applicationName=Ckt-Collector
       -Dprofiler.transport.grpc.collector.ip=pinpoint-collector
       -Dprofiler.collector.ip=pinpoint-collector
       -jar app.jar
 
   consumer:
     build:
-      context: ./collector
+      context: .
+      dockerfile: ./collector/Dockerfile
     depends_on:
       - db
       - rabbitmq
@@ -115,6 +122,13 @@ services:
       - ./logs:/logs
     networks:
       - ckt_network
+    command:
+      -javaagent:/app/pinpoint-agent-2.5.4/pinpoint-bootstrap-2.5.4.jar
+      -Dpinpoint.agentId=${HOSTNAME}-consumer-app
+      -Dpinpoint.applicationName=Ckt-Consumer
+      -Dprofiler.transport.grpc.collector.ip=pinpoint-collector
+      -Dprofiler.collector.ip=pinpoint-collector
+      -jar app.jar
 
   prometheus:
     image: prom/prometheus

@@ -83,7 +83,18 @@
 <br />
 
 ## ⚙ 기술 스택
+### Front-end
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/AWS%20Amplify-FEDB00?style=for-the-badge&logo=awsamplify&logoColor=black">
+<br />
 
+### Back-end
+<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=OpenJDK&logoColor=white"> <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=Hibernate&logoColor=white"> <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-FF6600?style=for-the-badge&logo=RabbitMQ&logoColor=white"> <img src="https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=Prometheus&logoColor=white"> <img src="https://img.shields.io/badge/grafana-%23F46800.svg?style=for-the-badge&logo=grafana&logoColor=white">
+<br />
+
+### Infra
+<img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white"> <img src="https://img.shields.io/badge/AWS%20EC2-FF9900?style=for-the-badge&logo=AWS%20EC2&logoColor=white"> <img src="https://img.shields.io/badge/AWS%20ECR-FF9900?style=for-the-badge&logo=AWSaws&logoColor=white">
+<img src="https://img.shields.io/badge/AWS%20ECS-FF9900?style=for-the-badge&logo=AWSaws&logoColor=white">
+<img src="https://img.shields.io/badge/AWS%20CloudWatch-FF4F8B?style=for-the-badge&logo=AWSaws&logoColor=white">
 
 
 ## 🛠️ 프로젝트 아키텍처
